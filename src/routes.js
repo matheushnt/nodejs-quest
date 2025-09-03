@@ -7,7 +7,7 @@ const database = new Database();
 export const routes = [
   {
     method: 'GET',
-    path: '/users',
+    path: buildRoutePath('/users'),
     handler: (req, res) => {
       const users = database.select('users');
 
@@ -34,7 +34,9 @@ export const routes = [
     method: 'DELETE',
     path: buildRoutePath('/users/:id'),
     handler: (req, res) => {
-      res.end();
+      database.delete('users', req.params.id);
+
+      res.writeHead(204).end();
     },
   },
 ];
